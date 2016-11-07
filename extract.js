@@ -17,7 +17,7 @@ function getExtractor(context) {
 function getFirstAttribute(extractor, item, attributes) {
 	for (var i = 0; i < attributes.length; i++) {
 		var attributeValue = extractor.getAttribute(item, attributes[i]);
-		if (attributeValue) {
+		if (attributeValue !== undefined) {
 			return attributeValue;
 		}
 	}
