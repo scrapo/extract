@@ -12,7 +12,7 @@ module.exports = {
 		return select(context, selector || []);
 	},
 	getAttribute: function (context, key) {
-		return select(context || {}, key || []);
+		return select(context, key || []);
 	},
 	iterate: function (context, callback) {
 		return each(Array.isArray(context) ? context : [context], callback);
