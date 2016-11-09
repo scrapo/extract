@@ -9,7 +9,7 @@ module.exports = {
 		return context;
 	},
 	select: function (context, selector) {
-		return select(context, selector || []);
+		return select(context, selector || []) || [];
 	},
 	getAttribute: function (context, key) {
 		return select(context, key || []);
