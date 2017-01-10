@@ -1,8 +1,22 @@
 const cheerio = require('cheerio');
+const url = require('url');
+
+function resolveHyperlinks(context, relative) {
+	context.find('*[src]').each(function () {
+		this['attribs']['src'] = url.resolve(relative, this['attribs']['src']);
+	});
+	context.find('*[href]').each(function () {
+		this['attribs']['href'] = url.resolve(relative, this['attribs']['href']);
+	});
+}
 
 module.exports = {
-	prepareContext: function (context) {
-		return this.transformContext(context);
+	prepareContext: function (context, options) {
+		const transformedContext = this.transformContext(context);
+		if (options && options.uri) {
+			resolveHyperlinks(transformedContext, options.uri);
+		}
+		return transformedContext;
 	},
 	transformContext: function (context) {
 		return cheerio(context);
