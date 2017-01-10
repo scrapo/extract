@@ -5,10 +5,10 @@ const strategies = [
 	require('./strategies/html')
 ];
 
-function getExtractor(context) {
+function getExtractor(context, options) {
 	for (var i = 0; i < strategies.length; i++) {
 		try {
-			return {extractor: strategies[i], context: strategies[i].prepareContext(context)};
+			return {extractor: strategies[i], context: strategies[i].prepareContext(context, options)};
 		} catch (error) {
 		}
 	}
@@ -40,7 +40,7 @@ function extract(extractor, context, template) {
 	return from ? getFirstAttribute(extractor, context, from) : extractor.getAttribute(context);
 }
 
-module.exports = function (context, template) {
-	const data = getExtractor(context);
+module.exports = function (context, template, options) {
+	const data = getExtractor(context, options);
 	return extract(data.extractor, data.context, template);
 };
